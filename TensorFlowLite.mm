@@ -49,7 +49,8 @@ namespace {
     NSString* labels_file_type = @"txt";
     
     // These dimensions need to match those the model was trained with.
-    /* mobilenet
+    /*
+     //mobilenet
      const int wanted_input_width = 224;
      const int wanted_input_height = 224;
      const int wanted_input_channels = 3;
@@ -57,7 +58,7 @@ namespace {
      const float input_std = 127.5f;
      const std::string input_layer_name = "input";
      const std::string output_layer_name = "softmax1";
-     */
+    */
     // pnet
     const int wanted_input_width = 600;
     const int wanted_input_height = 800;
@@ -65,6 +66,7 @@ namespace {
     const float input_mean = 127.5f;
     const float input_std = 127.5f;
     const std::string input_layer_name = "input";
+    
     
     NSString* FilePathForResourceName(NSString* name, NSString* extension) {
         NSString* file_path = [[NSBundle mainBundle] pathForResource:name ofType:extension];
@@ -199,7 +201,7 @@ namespace {
 #endif
     
     // TODO: about input data shape
-    // Explicitly resize the input tensor.
+    // Explicitly resize the input tensor.!!!!!!resizeをグラフ内でしてるのでは！！！！！！
     {
         int input = interpreter->inputs()[0];
         std::vector<int> sizes = {1, 224, 224, 3};
@@ -251,6 +253,7 @@ namespace {
     const int image_channels = 4;
     assert(image_channels >= wanted_input_channels);
     uint8_t* in = sourceStartAddr;
+    //input size確認！！！！！！！ここで先にresizeしてしまう！！！！！！
     
     int input = interpreter->inputs()[0];
     TfLiteTensor *input_tensor = interpreter->tensor(input);
@@ -287,6 +290,7 @@ namespace {
           total_count);
     //TODO: get output
     // read output size from the output sensor
+    /*
     const int output_tensor_index = interpreter->outputs()[0];
     TfLiteTensor* output_tensor = interpreter->tensor(output_tensor_index);
     TfLiteIntArray* output_dims = output_tensor->dims;
@@ -311,19 +315,19 @@ namespace {
             output[i] = (quantized_output[i] - zero_point) * scale;
         }
         GetTopN(output, output_size, kNumResults, kThreshold, &top_results);
-        int size = interpreter->tensor(0)->dims->data[3];
-        std::cout << "vector size: " << size << std::endl;
-        for (int i = 0; i < size; ++i){
-            std::cout << output[i] << " ";
-        }
-        std::cout << std::endl;
-        
+        //int size = interpreter->tensor(0)->dims->data[3];
+        //std::cout << "vector size: " << size << std::endl;
+        //for (int i = 0; i < size; ++i){
+        //    std::cout << output[i] << " ";
+        //}
+        //std::cout << std::endl;
+     
     } else {
         float* output = interpreter->typed_output_tensor<float>(0);
         GetTopN(output, output_size, kNumResults, kThreshold, &top_results);
         
-        int size = interpreter->tensor(0)->dims->data[0];
-        std::cout << "vector size: " << size << std::endl;
+        //int size = interpreter->tensor(0)->dims->data[0];
+        ///std::cout << "vector size: " << size << std::endl;
     }
     
     //TODO: shape for putting view
@@ -335,14 +339,16 @@ namespace {
         NSNumber* valueObject = [NSNumber numberWithFloat:confidence];
         [newValues setObject:valueObject forKey:labelObject];
     }
+    */
     
     CVPixelBufferUnlockBaseAddress(pixelBuffer, unlockFlags);
     CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
-    
+    /*
     //TODO: set output in the view
     dispatch_async(dispatch_get_main_queue(), ^(void) {
         completion(newValues);
     });
+    */
 }
 
 // TODO: mtcnn model run

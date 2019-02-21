@@ -141,6 +141,7 @@
         [self setPredictionValues:values];
     }];
     
+    
   CFRelease(pixelBuffer);
 }
 
