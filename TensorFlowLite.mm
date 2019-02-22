@@ -36,11 +36,11 @@ namespace {
     // you've added the file to your app resources too.
 #if TFLITE_USE_GPU_DELEGATE
     // GPU Delegate only supports float model now.
-    //NSString* model_file_name = @"mobilenet_v1_1.0_224";
-    NSString* model_file_name = @"pnet";
+    NSString* model_file_name = @"mobilenet_v1_1.0_224";
+    //NSString* model_file_name = @"pnet";
 #else
-    //NSString* model_file_name = @"mobilenet_quant_v1_224";
-    NSString* model_file_name = @"pnet";
+    NSString* model_file_name = @"mobilenet_quant_v1_224";
+    //NSString* model_file_name = @"pnet";
 #endif
     NSString* model_file_type = @"tflite";
     // If you have your own model, point this to the labels file.
@@ -49,7 +49,6 @@ namespace {
     NSString* labels_file_type = @"txt";
     
     // These dimensions need to match those the model was trained with.
-    /*
      //mobilenet
      const int wanted_input_width = 224;
      const int wanted_input_height = 224;
@@ -58,7 +57,7 @@ namespace {
      const float input_std = 127.5f;
      const std::string input_layer_name = "input";
      const std::string output_layer_name = "softmax1";
-    */
+    /*
     // pnet
     const int wanted_input_width = 600;
     const int wanted_input_height = 800;
@@ -66,7 +65,7 @@ namespace {
     const float input_mean = 127.5f;
     const float input_std = 127.5f;
     const std::string input_layer_name = "input";
-    
+    */
     
     NSString* FilePathForResourceName(NSString* name, NSString* extension) {
         NSString* file_path = [[NSBundle mainBundle] pathForResource:name ofType:extension];

@@ -132,14 +132,14 @@
            fromConnection:(AVCaptureConnection*)connection {
   CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
   CFRetain(pixelBuffer);
-    /*
     [self.tensorFlowLite runModelOnFrame:pixelBuffer completion:^(NSDictionary * _Nonnull values) {
         [self setPredictionValues:values];
     }];
-    */
+    /*
     [self.tensorFlowLite runModelOnFrameMtcnn:pixelBuffer completion:^(NSDictionary * _Nonnull values) {
         [self setPredictionValues:values];
     }];
+    */
     
     
   CFRelease(pixelBuffer);
